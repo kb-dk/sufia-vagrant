@@ -26,7 +26,8 @@ pushd ~/
 rake jetty:clean -f /var/www/sufia/code/Rakefile #Because fedora4 does not like the vagrant shared directoreis...
 rake sufia:jetty:config -f /var/www/sufia/code/Rakefile
 cd jetty
-java -Djetty.port=8983 -Dsolr.solr.home=$HOME/jetty/solr -Xmx512m -XX:MaxPermSize=128m -jar start.jar
+java -Djetty.port=8983 -Dsolr.solr.home=$HOME/jetty/solr -Xmx512m -XX:MaxPermSize=128m -jar start.jar &
+disown
 popd
 
 #Start background workers
