@@ -32,10 +32,14 @@ bundle install --clean --deployment --without development test
 #Your app may also depend on services, such as PostgreSQL, Redis, etc. Installing services that your app depends on is outside of this walkthrough's scope.
 
 #Start background processes that are required
+#This is the crap that is needed for the jetty to run....
 sudo yum -y install java
-rake jetty:clean
-rake sufia:jetty:config
-rake jetty:start
+pushd ~/
+rake jetty:clean -f /var/www/sufia/code/Rakefile #Because fedora4 does not like the vagrant shared directoreis...
+rake sufia:jetty:config -f /var/www/sufia/code/Rakefile
+cd jetty
+java -Djetty.port=8983 -Dsolr.solr.home=$HOME/jetty/solr -Xmx512m -XX:MaxPermSize=128m -jar start.jar
+popd
 
 #Start background workers
 #Sufia uses a queuing system named Resque to manage long-running or slow processes. Resque relies on the redis key-value
