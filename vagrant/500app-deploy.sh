@@ -28,20 +28,22 @@ fi
 #sudo sh -c "chmod 600 ~vagrant/.ssh/*"
 
 
-#1.3 Install Git on the server
-sudo yum install -y git
 
 
 #1.4 Pull code
 #You need to pick a location in which to permanently store your application's code. A good location is
 # /var/www/APP_NAME. Let us create that directory.
 
-sudo mkdir -p /var/www/passenger-ruby-rails-demo
-sudo chown vagrant: /var/www/passenger-ruby-rails-demo
+
+sudo mkdir -p /var/www/sufia
+sudo chown vagrant: /var/www/sufia
 #Replace myapp and myappuser with your app's name and your app user account's name.
 
 #Now let us pull the code from Git:
-cd /var/www/passenger-ruby-rails-demo
-sudo -u vagrant -H git clone https://github.com/phusion/passenger-ruby-rails-demo.git code
+#1.3 Install Git on the server
+#sudo yum install -y git
+#cd /var/www/passenger-ruby-rails-demo
+#sudo -u vagrant -H git clone https://github.com/phusion/passenger-ruby-rails-demo.git code
 #Your app's code now lives on the server at /var/www/passenger-ruby-rails-demo/code.
+ln -s /app /var/www/sufia/code
 touch ~/app-deploy

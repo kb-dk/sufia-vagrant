@@ -47,4 +47,4 @@ bundle exec rake assets:precompile db:migrate RAILS_ENV=production
 #Passenger may still be serving an old instance of your application. Now that all application updates have been prepared,
 # tell Passenger to restart your application so that the updates take effect.
 
-passenger-config restart-app /var/www/passenger-ruby-rails-demo/code
+passenger-config restart-app /var/www/sufia/code

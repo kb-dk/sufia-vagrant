@@ -15,8 +15,7 @@ fi
 
 #Since you are using RVM, make sure that you activate the Ruby version that you want to run your app under. For example:
 source /usr/local/rvm/scripts/rvm
-
-rvm use ruby-2.2.1
+rvm use ruby
 
 
 #2.2 Install app dependencies
@@ -25,7 +24,7 @@ rvm use ruby-2.2.1
 # managed by Bundler. You can install them by running bundle install --deployment --without development test -j 2 in
 # your app's directory:
 
-cd /var/www/passenger-ruby-rails-demo/code
+cd /var/www/sufia/code
 bundle install --deployment --without development test
 
 #Your app may also depend on services, such as PostgreSQL, Redis, etc. Installing services that your app depends on is outside of this walkthrough's scope.

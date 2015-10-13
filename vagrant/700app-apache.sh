@@ -33,7 +33,7 @@ fi
 #We need to create an Apache configuration file and setup a virtual host entry that points to your app. This virtual
 # host entry tells Apache (and Passenger) where your app is located.
 
-sudo cp -f /vagrant/passenger-ruby-rails-demo.conf /etc/httpd/conf.d/passenger-ruby-rails-demo.conf
+sudo cp -f /vagrant/sufia.conf /etc/httpd/conf.d/sufia.conf
 #Replace myapp with your app's name.
 
 #When you are done, restart Apache:
