@@ -56,3 +56,11 @@ end
 gem 'sufia', '6.3.0'
 # required to handle pagination properly in dashboard. See https://github.com/amatsuda/kaminari/pull/322" >> sufia-test/Gemfile
 gem 'kaminari', github: 'jcoyne/kaminari', branch: 'sufia'
+
+gem 'rsolr', '~> 1.0.6'
+gem 'devise'
+gem 'devise-guests', '~> 0.3'
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'jettywrapper'
+end
