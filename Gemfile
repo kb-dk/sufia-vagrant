@@ -13,12 +13,13 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 
 # See https://github.com/rails/execjs#readme for more supported runtimes
-group :development, :test do
-    gem 'therubyracer', platforms: :ruby
-end
+gem 'therubyracer', platforms: :ruby
+
+=begin
 group :production do
   gem 'node'
 end
+=end
 
 
 # Use jquery as the JavaScript library
@@ -34,7 +35,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Passenger as the app server
-gem 'passenger'
+gem 'passenger', '~> 5.0.20'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
