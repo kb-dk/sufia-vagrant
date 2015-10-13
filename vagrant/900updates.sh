@@ -19,16 +19,6 @@ git pull
 
 #2 Prepare application
 
-#2.1 Switch to the appropriate Ruby interpreter
-
-#If you have multiple Ruby interpreters on your system, then you must ensure that your shell has activated the same Ruby
-# interpreter that you used when you first deployed your app.
-
-#For example, if you are using RVM to manage Ruby interpreters, run the following (assuming your app is supposed to use Ruby 2.2.1).
-source /usr/local/rvm/scripts/rvm
-rvm use ruby
-
-
 #2.2 Install app dependencies
 
 #Your application's gem dependencies may have changed, so we should install any updated gem dependencies. Run:

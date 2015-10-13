@@ -14,8 +14,8 @@ fi
 #All subsequent instructions must be run under the application's user account.
 
 #Since you are using RVM, make sure that you activate the Ruby version that you want to run your app under. For example:
-source /usr/local/rvm/scripts/rvm
-rvm use ruby
+#source /usr/local/rvm/scripts/rvm
+#rvm use ruby
 
 
 #2.2 Install app dependencies
@@ -24,10 +24,30 @@ rvm use ruby
 # managed by Bundler. You can install them by running bundle install --deployment --without development test -j 2 in
 # your app's directory:
 
+sudo yum install -y git # Because sufia has a github dependency
 cd /var/www/sufia/code
-bundle install --deployment --without development test
+bundle config build.nokogiri --use-system-libraries #Because nokogiri does not like nokogiri....
+bundle install --clean --deployment --without development test
 
 #Your app may also depend on services, such as PostgreSQL, Redis, etc. Installing services that your app depends on is outside of this walkthrough's scope.
+
+#Start background processes that are required
+sudo yum -y install java
+rake jetty:clean
+rake sufia:jetty:config
+rake jetty:start
+
+#Start background workers
+#Sufia uses a queuing system named Resque to manage long-running or slow processes. Resque relies on the redis key-value
+# store, so redis must be installed and running on your system in order for background workers to pick up jobs.
+#Unless redis has already been started, you will want to start it up. You can do this either by calling the redis-server
+# command, or if you're on certain Linuxes, you can do this via sudo service redis-server start.
+#Next you will need to spawn Resque's workers.
+sudo yum -y install redis
+sudo systemctl restart redis.service
+sudo systemctl enable redis.service
+redis-cli ping | grep PONG
+QUEUE=* rake environment resque:work
 
 
 
@@ -47,20 +67,22 @@ bundle install --deployment --without development test
 #Rails also needs a unique secret key with which to encrypt its sessions. Starting from Rails 4, this secret key is
 # stored in config/secrets.yml. But first, we need to generate a secret key. Run:
 
-secret=$(bundle exec rake secret)
-#...
-#This command will output a secret key. Copy that value to your clipboard. Next, open config/secrets.yml:
+if grep SECRET_KEY_BASE config/secrets.yml; then
+    secret=$(bundle exec rake secret)
+    #...
+    #This command will output a secret key. Copy that value to your clipboard. Next, open config/secrets.yml:
 
-sed -i 's/<%=\s*ENV\["SECRET_KEY_BASE"\]\s*%>/'$secret'/g' config/secrets.yml
-#If the file already exists, look for this:
+    sed -i 's/<%=\s*ENV\["SECRET_KEY_BASE"\]\s*%>/'$secret'/g' config/secrets.yml
+    #If the file already exists, look for this:
 
-#production:
-#  secret_key_base: <%=ENV["SECRET_KEY_BASE"]%>
+    #production:
+    #  secret_key_base: <%=ENV["SECRET_KEY_BASE"]%>
 
-#Then replace it with the following. If the file didn't already exist, simply insert the following.
+    #Then replace it with the following. If the file didn't already exist, simply insert the following.
 
-#production:
-#  secret_key_base: the value that you copied from 'rake secret'
+    #production:
+    #  secret_key_base: the value that you copied from 'rake secret'
+fi
 
 #To prevent other users on the system from reading sensitive information belonging to your app, let's tighten the
 # security on the configuration directory and the database directory:
@@ -72,5 +94,8 @@ chmod 600 config/database.yml config/secrets.yml
 
 #Run the following command to compile assets for the Rails asset pipeline, and to run database migrations:
 bundle exec rake assets:precompile db:migrate RAILS_ENV=production
+
+
+
 
 touch ~/app-env
