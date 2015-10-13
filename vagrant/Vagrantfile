@@ -17,6 +17,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network :forwarded_port, guest: 3306, host: 3306 # MySQL
   config.vm.network :forwarded_port, guest: 5432, host: 5432 # PostgreSQL
 =end
+  config.vm.network :forwarded_port, guest: 8983, host: 8983 # jetty med fedora og solr
   config.vm.network :forwarded_port, guest: 80, host: 8000 # Apache
 
 
@@ -25,8 +26,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.cpus = 4
   end
 
-  #Correct centos 7 crap
-  config.vm.synced_folder ".", "/home/vagrant/sync", disabled: true
   config.vm.synced_folder ".", "/vagrant", disabled: false
   config.vm.synced_folder "../", "/app", disabled: false
 
