@@ -6,18 +6,6 @@ if [ -f ~/app-env ]; then
     exit
 fi
 
-
-#2 Preparing the app's environment
-
-#2.1 Login as the app's user
-
-#All subsequent instructions must be run under the application's user account.
-
-#Since you are using RVM, make sure that you activate the Ruby version that you want to run your app under. For example:
-#source /usr/local/rvm/scripts/rvm
-#rvm use ruby
-
-
 #2.2 Install app dependencies
 
 #Your application has various dependencies. They must be installed. Most of these dependencies are gems in your Gemfile,

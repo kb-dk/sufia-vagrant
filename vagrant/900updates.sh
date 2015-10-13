@@ -12,17 +12,12 @@
 
 
 
-#Go to your application's code directory on the server, then use Git to pull the latest code:
-cd /var/www/passenger-ruby-rails-demo/code
-git pull
-
-
 #2 Prepare application
 
 #2.2 Install app dependencies
 
 #Your application's gem dependencies may have changed, so we should install any updated gem dependencies. Run:
-
+bundle config build.nokogiri --use-system-libraries #Because nokogiri does not like nokogiri....
 bundle install --deployment --without development test
 
 #2.3 Compile Rails assets and run database migrations

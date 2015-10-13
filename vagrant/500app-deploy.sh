@@ -6,7 +6,6 @@ if [ -f ~/app-deploy ]; then
 fi
 
 
-#1.4 Pull code
 #You need to pick a location in which to permanently store your application's code. A good location is
 # /var/www/APP_NAME. Let us create that directory.
 

@@ -30,10 +30,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder ".", "/vagrant", disabled: false
   config.vm.synced_folder "../", "/app", disabled: false
 
-  config.vm.provision :shell, :name=> "100bootstrap.sh", :path => "100bootstrap.sh", :privileged => false
-  #config.vm.provision :shell, :name=> "200rvm.sh", :path => "200rvm.sh", :privileged => false
   config.vm.provision :shell, :name=> "300ruby.sh", :path => "300ruby.sh", :privileged => false
-  config.vm.provision :shell, :name=> "350nodejs.sh", :path => "350nodejs.sh", :privileged => false
   config.vm.provision :shell, :name=> "400passenger.sh", :path => "400passenger.sh", :privileged => false
   config.vm.provision :shell, :name=> "500app-deploy.sh", :path => "500app-deploy.sh", :privileged => false
   config.vm.provision :shell, :name=> "600app-env.sh", :path => "600app-env.sh", :privileged => false

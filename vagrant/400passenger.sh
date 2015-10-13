@@ -13,7 +13,7 @@ sudo yum install -y epel-release pygpgme curl
 # Add our el7 YUM repository
 sudo curl --fail -sSLo /etc/yum.repos.d/passenger.repo https://oss-binaries.phusionpassenger.com/yum/definitions/el-passenger.repo
 # Install Passenger + Apache module
-sudo yum install -y mod_passenger  passenger-devel
+sudo yum install -y mod_passenger passenger-devel #devel is used for some JIT compilations that passenger can do
 
 # Step 2:  restart Apache
 #Now that the Passenger Apache module is installed, restart Apache to ensure that Passenger is activated:
