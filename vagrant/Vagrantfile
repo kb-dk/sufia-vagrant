@@ -31,5 +31,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provision :shell, :name=> "600app-env.sh", :path => "600app-env.sh", :privileged => false
   config.vm.provision :shell, :name=> "700app-apache.sh", :path => "700app-apache.sh", :privileged => false
+  config.vm.provision :shell, :name=> "800SufiaCLITools.sh", :path => "800SufiaCLITools.sh", :privileged => false
 
 end
