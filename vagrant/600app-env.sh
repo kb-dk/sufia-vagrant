@@ -2,6 +2,7 @@
 
 
 set -e
+set -x
 if [ -f ~/app-env ]; then
     exit
 fi
@@ -13,22 +14,11 @@ fi
 # your app's directory:
 
 sudo yum install -y git # Because sufia has a github dependency
-cd /var/www/sufia/code
+cd /app
 bundle config build.nokogiri --use-system-libraries #Because nokogiri does not like nokogiri....
 bundle install --clean --deployment --without development test
 
 #Your app may also depend on services, such as PostgreSQL, Redis, etc. Installing services that your app depends on is outside of this walkthrough's scope.
-
-#Start background processes that are required
-#This is the crap that is needed for the jetty to run....
-sudo yum -y install java
-pushd ~/
-rake jetty:clean -f /var/www/sufia/code/Rakefile #Because fedora4 does not like the vagrant shared directoreis...
-rake sufia:jetty:config -f /var/www/sufia/code/Rakefile
-cd jetty
-java -Djetty.port=8983 -Dsolr.solr.home=$HOME/jetty/solr -Xmx512m -XX:MaxPermSize=128m -jar start.jar &
-disown
-popd
 
 #Start background workers
 #Sufia uses a queuing system named Resque to manage long-running or slow processes. Resque relies on the redis key-value
@@ -40,7 +30,7 @@ sudo yum -y install redis
 sudo systemctl restart redis.service
 sudo systemctl enable redis.service
 redis-cli ping | grep PONG
-QUEUE=* rake environment resque:work
+QUEUE=* bundle exec rake environment resque:work
 
 
 

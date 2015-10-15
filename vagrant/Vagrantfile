@@ -12,14 +12,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "http://halley/vagrant-images/sb-centos7-vanilla-v1-vbox"
   config.vbguest.auto_update = false
 
-=begin
-  config.vm.network :forwarded_port, guest: 8080, host: 8080 # Tomcat
-  config.vm.network :forwarded_port, guest: 8181, host: 8181 # Karaf
-  config.vm.network :forwarded_port, guest: 3306, host: 3306 # MySQL
-  config.vm.network :forwarded_port, guest: 5432, host: 5432 # PostgreSQL
-=end
-  config.vm.network :forwarded_port, guest: 8983, host: 8983 # jetty med fedora og solr
   config.vm.network :forwarded_port, guest: 80, host: 8000 # Apache
+  config.vm.network :forwarded_port, guest: 8080, host: 8080 # Tomcat
 
 
   config.vm.provider "virtualbox" do |vb|
@@ -30,9 +24,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder ".", "/vagrant", disabled: false
   config.vm.synced_folder "../", "/app", disabled: false
 
+  config.vm.provision :shell, :name=> "040fcrepo.sh", :path => "040fcrepo.sh", :privileged => false
   config.vm.provision :shell, :name=> "300ruby.sh", :path => "300ruby.sh", :privileged => false
   config.vm.provision :shell, :name=> "400passenger.sh", :path => "400passenger.sh", :privileged => false
-  config.vm.provision :shell, :name=> "500app-deploy.sh", :path => "500app-deploy.sh", :privileged => false
+
+
   config.vm.provision :shell, :name=> "600app-env.sh", :path => "600app-env.sh", :privileged => false
   config.vm.provision :shell, :name=> "700app-apache.sh", :path => "700app-apache.sh", :privileged => false
 
