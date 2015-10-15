@@ -24,6 +24,6 @@ sudo systemctl restart httpd
 sudo passenger-config validate-install | grep "Everything looks good. :-)"
 
 #Something breaks with SELinux, I have not had the time to find it
-sudo setenforce 0
+#sudo setenforce 0
 
 touch ~/passenger
