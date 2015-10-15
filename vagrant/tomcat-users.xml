@@ -1,0 +1,7 @@
+<tomcat-users xmlns="http://tomcat.apache.org/xml" version="1.0">
+    <role rolename="fedoraUser"/>
+    <role rolename="fedoraAdmin"/>
+    <role rolename="manager-gui"/>
+    <user username="fedoraAdmin" password="fedoraAdminPass" roles="fedoraAdmin"/>
+    <user username="fedora4" password="fedora4" roles="manager-gui"/>
+</tomcat-users>
